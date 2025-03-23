@@ -49,7 +49,7 @@ fun main() {
     println()
     println("Welcome to OLD GOLD $player2")
     println()
-    val numCoins = getCoins("There are $NUMBOXES boxes. How many Coins do you want to play with (5-15)?")
+    var numCoins = getCoins("There are $NUMBOXES boxes. How many Coins do you want to play with (5-15)?")
 
     val box = setupGrid()
     showGrid(box)
@@ -88,9 +88,7 @@ fun showGrid(grid: List<String>) {
 fun setupGrid(): MutableList<String> {
     val grid = mutableListOf<String>()
     for (i in 1..NUMBOXES) grid.add(EMPTY)
-    for (num in 1..numCoins) {
-        grid.add(SILVER)
-    }
+
     return grid
 }
 
@@ -103,6 +101,12 @@ fun getCoins(prompt: String): Int {
         intValue = userInput.toIntOrNull()
         if (intValue != null) {
             if (intValue in 5..15) break
+            else {
+                println("That's not a valid number.")
+            }
+        }
+        else {
+            println("That's not a valid number.")
         }
     }
     return intValue!!
