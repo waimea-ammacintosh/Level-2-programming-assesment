@@ -11,13 +11,14 @@
  * where the aim is to win by being the player who removes the gold coin.
  * =====================================================================
  */
-
+// constants for the entire game
 val NUMBOXES = (15..25).random()
-val EMPTY = " "
+const val EMPTY = " "
 val SILVER = "S".grey()
 val GOLD = "G".yellow()
 
 fun main() {
+    //intro and instructions
     println("Welcome to...")
     println(" _____ _    ______   _____ _____ _    ______ \n" +
             "|  _  | |   |  _  \\ |  __ \\  _  | |   |  _  \\\n" +
@@ -41,6 +42,7 @@ fun main() {
     println()
     println("Now, we shall commence!")
     println()
+    //gets players names
     val player1 = getName("Player One, What is your name? ")
     println()
     println("Welcome to OLD GOLD $player1")
@@ -49,20 +51,25 @@ fun main() {
     println()
     println("Welcome to OLD GOLD $player2")
     println()
-    val playerCoinNum = getCoins("There are $NUMBOXES boxes. How many Coins do you want to play with (5-15)?").toInt()
-
+    //gets amount of coins to play with
+    val playerCoinNum = getCoins("There are $NUMBOXES boxes. How many Coins do you want to play with (5-15)?")
+// sets up grid and displays it
     val box = setupGrid(playerCoinNum)
     showGrid(box)
 
 
 }
 
+/**
+ * gets users name and checks if there is an actual value there
+ */
 fun getName(prompt: String): String {
     var userInput: String
 
     while (true) {
         print(prompt)
-
+//checks for user input and if it is not blank. if so, it will break from the loop,
+// but it will continue looping if the user inputs nothing.
         userInput = readln()
         if (userInput.isNotBlank()) break
 
@@ -70,9 +77,12 @@ fun getName(prompt: String): String {
     return userInput
 }
 
+/**
+ * shows the grid every turn
+ */
 fun showGrid(grid: List<String>) {
     val divider = "+---".repeat(grid.size) + "+"
-
+// prints out the grid by repeating the divider and printing the values in it and prints end lines.
     println()
     println("OLD GOLD")
     println(divider)
@@ -85,16 +95,29 @@ fun showGrid(grid: List<String>) {
     println(divider)
 }
 
+/**
+ * sets up the grid at the start of the game.
+ * also adds the right amount of coins.
+ */
 fun setupGrid(numCoins: Int): MutableList<String> {
     val grid = mutableListOf<String>()
     for (i in 1..NUMBOXES) grid.add(EMPTY)
-    for (i in 1..numCoins) {
-        var availableIndex = mutableListOf<Int>(numCoins)
 
+    val availableIndex = mutableListOf<Int>()
+    for (num in 0..<NUMBOXES) {
+        availableIndex.add(num)
+    }
 
-        if (grid[i - 1].contains(EMPTY)) {
-            grid.add(index = (1..NUMBOXES).random(), SILVER)
-            grid.removeAt(index = i)
+    for (num in 1..<numCoins-1) {
+        while (true) {
+            val indexNum = (0..<NUMBOXES-1).random()
+            if (availableIndex.contains(indexNum) && grid[indexNum].contains(EMPTY)) {
+
+                grid.add(indexNum, SILVER)
+                grid.removeAt(indexNum - 1)
+                availableIndex.removeAt(indexNum - 1)
+                break
+            }
         }
     }
     return grid
