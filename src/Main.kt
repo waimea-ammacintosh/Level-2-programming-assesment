@@ -13,9 +13,9 @@
  */
 
 val NUMBOXES = (15..25).random()
-val EMPTY = "---"
-val SILVER = "Silver".grey()
-val GOLD = "Gold".yellow()
+val EMPTY = " "
+val SILVER = "S".grey()
+val GOLD = "G".yellow()
 
 fun main() {
     println("Welcome to...")
@@ -41,17 +41,17 @@ fun main() {
     println()
     println("Now, we shall commence!")
     println()
-    val player1 = getName("Player One, What is your name?")
+    val player1 = getName("Player One, What is your name? ")
     println()
     println("Welcome to OLD GOLD $player1")
     println()
-    val player2 = getName("Player Two, What is your name?")
+    val player2 = getName("Player Two, What is your name? ")
     println()
     println("Welcome to OLD GOLD $player2")
     println()
-    var numCoins = getCoins("There are $NUMBOXES boxes. How many Coins do you want to play with (5-15)?")
+    val playerCoinNum = getCoins("There are $NUMBOXES boxes. How many Coins do you want to play with (5-15)?").toInt()
 
-    val box = setupGrid()
+    val box = setupGrid(playerCoinNum)
     showGrid(box)
 
 
@@ -71,13 +71,13 @@ fun getName(prompt: String): String {
 }
 
 fun showGrid(grid: List<String>) {
-    val divider = "+--------".repeat(grid.size) + "+"
+    val divider = "+---".repeat(grid.size) + "+"
 
     println()
     println("OLD GOLD")
     println(divider)
-    for ((i, box) in grid.withIndex()) {
-        print("|" + " ${box.padEnd(6)} ")
+    for (box in grid.withIndex()) {
+        print("| $box ")
     }
 
     println("|")
@@ -85,10 +85,18 @@ fun showGrid(grid: List<String>) {
     println(divider)
 }
 
-fun setupGrid(): MutableList<String> {
+fun setupGrid(numCoins: Int): MutableList<String> {
     val grid = mutableListOf<String>()
     for (i in 1..NUMBOXES) grid.add(EMPTY)
+    for (i in 1..numCoins) {
+        var availableIndex = mutableListOf<Int>(numCoins)
 
+
+        if (grid[i - 1].contains(EMPTY)) {
+            grid.add(index = (1..NUMBOXES).random(), SILVER)
+            grid.removeAt(index = i)
+        }
+    }
     return grid
 }
 
