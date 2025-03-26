@@ -14,7 +14,7 @@ Using these values will allow me to check if my boundaries (5 and 15) still work
 
 ### Test Result
 
-[Coin input test.mp4](captures/CoinInputTest.mp4)
+[Coin input test](captures/CoinNum.gif)
 
 Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result.
 

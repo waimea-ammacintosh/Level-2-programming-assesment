@@ -86,7 +86,7 @@ fun showGrid(grid: List<String>) {
     println()
     println("OLD GOLD")
     println(divider)
-    for (box in grid.withIndex()) {
+    for (box in grid) {
         print("| $box ")
     }
 
@@ -107,17 +107,26 @@ fun setupGrid(numCoins: Int): MutableList<String> {
     for (num in 0..<NUMBOXES) {
         availableIndex.add(num)
     }
-
-    for (num in 1..<numCoins-1) {
+// sets up the silver coins to the desired level
+    for (num in 1..<numCoins) {
         while (true) {
             val indexNum = (0..<NUMBOXES-1).random()
             if (availableIndex.contains(indexNum) && grid[indexNum].contains(EMPTY)) {
 
                 grid.add(indexNum, SILVER)
-                grid.removeAt(indexNum - 1)
-                availableIndex.removeAt(indexNum - 1)
+                grid.removeAt(indexNum+1)
+                availableIndex.removeAt(indexNum)
                 break
             }
+        }
+    }
+    // sets up the gold coin
+    while (true) {
+        val goldIndexNum = (0..<NUMBOXES-1).random()
+        if (availableIndex.contains(goldIndexNum) && grid[goldIndexNum].contains(EMPTY)) {
+            grid.add(goldIndexNum, GOLD)
+            grid.removeAt(goldIndexNum - 1)
+            break
         }
     }
     return grid
