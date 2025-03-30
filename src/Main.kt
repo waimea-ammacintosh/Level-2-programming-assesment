@@ -16,6 +16,8 @@ val NUMBOXES = (15..25).random()
 const val EMPTY = " "
 val SILVER = "S".grey()
 val GOLD = "G".yellow()
+var containsGold = true
+var takeCoin = false
 
 fun main() {
     //intro and instructions
@@ -55,7 +57,15 @@ fun main() {
     val playerCoinNum = getCoins("There are $NUMBOXES boxes. How many Coins do you want to play with (5-15)?")
 // sets up grid and displays it
     val box = setupGrid(playerCoinNum)
-    showGrid(box)
+
+
+    while (containsGold) {
+        showGrid(box)
+        askForActions()
+
+
+
+    }
 
 
 }
@@ -152,3 +162,42 @@ fun getCoins(prompt: String): Int {
     return intValue!!
 }
 
+fun checkLastBox (grid: List<String>): Boolean {
+    if (grid.first() == EMPTY) {
+         takeCoin = true
+    }
+    else {
+         takeCoin = false
+    }
+    return takeCoin
+}
+
+fun checkMovableCoins (grid: List<String>): MutableList<Int> {
+    val availableCoins = mutableListOf<Int>()
+    for (i in grid) {
+        if (i.contains(SILVER) or i.contains(GOLD)) {
+            availableCoins.add(i.indexOf(i) + 1)
+        }
+    }
+    return availableCoins
+}
+
+fun checkGoldCoin(grid: List<String>) {
+    if (grid.contains(GOLD))  {
+         containsGold = true
+    }
+    else {
+         containsGold = false
+    }
+}
+
+fun askForActions (){
+    checkMovableCoins()
+    checkLastBox()
+    println("Do you want to:")
+    println("[M]ove a coin" + availabelCoins)
+    if checkLastBox () {
+        println("[T]ake the last Coin")
+    }
+
+}

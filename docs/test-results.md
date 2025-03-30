@@ -16,7 +16,7 @@ Using these values will allow me to check if my boundaries (5 and 15) still work
 
 [Coin input test](captures/CoinNum.gif)
 
-Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result.
+The program worked as expected. When I entered the in bound numbers, it allowed it to pass, and it did not allow out of bound or non-integer inputs.
 
 ---
 
