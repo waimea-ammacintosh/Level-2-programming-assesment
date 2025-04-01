@@ -34,35 +34,35 @@ I will run the program multiple times, making sure the grid displays the right a
 
 ### Expected Test Result
 
-My program should consistantly display the right amount of coins every time
+My program should consistently display the right amount of coins every time
 
 ---
 
-## Example Test Name
+## Turn Change
 
-Example test description. Example test description. Example test description. Example test description. Example test description. Example test description.
+This is to test if the current player is changing between 1 and 2.
 
 ### Test Data To Use
 
-Details of test data and reasons for selection. Details of test data and reasons for selection. Details of test data and reasons for selection.
+i will take a few turns to check if it always tells me who's turn it is
 
 ### Expected Test Result
 
-Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen.
+My program should always show swap between player 1 and 2 every time, with no exceptions
 
 ---
 
-## Example Test Name
+## Take a coin
 
-Example test description. Example test description. Example test description. Example test description. Example test description. Example test description.
+This is to test if taking a coin works in all allowed situations
 
 ### Test Data To Use
 
-Details of test data and reasons for selection. Details of test data and reasons for selection. Details of test data and reasons for selection.
+I will take a coin when there is a silver coin there, a gold coin there, and will try to take one when there is no coin there.
 
 ### Expected Test Result
 
-Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen.
+when the silver coin is taken, the coin should disappear, and the game should continue, when i take the gold coin, the game should end, and when i take no coin, it should tell me i cant take a coin
 
 ---
 

@@ -65,10 +65,7 @@ fun main() {
         checkLastBox(box)
         while (true) {
             println("Do you want to:")
-            val move = getString(
-                "[M]ove a coin" + if (takeCoin) " [T]ake coin" else {
-                }
-            )
+            val move = getString("[M]ove a coin" + if (takeCoin) " [T]ake coin" else {})
             when (move) {
                 "T" ->
 
@@ -89,9 +86,11 @@ fun main() {
                         if (selectedCoin != null && checkMovableCoins(box).contains(selectedCoin)) {
                             val availableSpaces = mutableListOf<Int>()
                             val nextCoin = 5
-                            availableSpaces.add(1..nextCoin)
+                            for (i in 1..nextCoin) {
+                                availableSpaces.add(i)
+                            }
                             while (true) {
-                                println("how many spaces do you want to move?" + availableSpaces)
+                                println("how many spaces do you want to move? $availableSpaces")
                                 val selectedMoves = readln().toIntOrNull()
                                 if (selectedMoves != null && availableSpaces.contains(selectedMoves)) {
                                     break
