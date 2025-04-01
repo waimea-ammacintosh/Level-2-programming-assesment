@@ -24,6 +24,20 @@ When I input 5 and 15, my program should allow these values to pass fine. When I
 
 ---
 
+## Grid set-up
+
+This is to check if my grid will set up right every time i set up my game
+
+### Test Data To Use
+
+I will run the program multiple times, making sure the grid displays the right amount of coins as the user inputs
+
+### Expected Test Result
+
+My program should consistantly display the right amount of coins every time
+
+---
+
 ## Example Test Name
 
 Example test description. Example test description. Example test description. Example test description. Example test description. Example test description.
@@ -34,8 +48,35 @@ Details of test data and reasons for selection. Details of test data and reasons
 
 ### Expected Test Result
 
-Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. 
+Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen.
 
 ---
 
+## Example Test Name
+
+Example test description. Example test description. Example test description. Example test description. Example test description. Example test description.
+
+### Test Data To Use
+
+Details of test data and reasons for selection. Details of test data and reasons for selection. Details of test data and reasons for selection.
+
+### Expected Test Result
+
+Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen.
+
+---
+
+## Example Test Name
+
+Example test description. Example test description. Example test description. Example test description. Example test description. Example test description.
+
+### Test Data To Use
+
+Details of test data and reasons for selection. Details of test data and reasons for selection. Details of test data and reasons for selection.
+
+### Expected Test Result
+
+Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen.
+
+---
 

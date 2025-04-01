@@ -45,11 +45,11 @@ fun main() {
     println("Now, we shall commence!")
     println()
     //gets players names
-    val player1 = getName("Player One, What is your name? ")
+    val player1 = getString("Player One, What is your name? ")
     println()
     println("Welcome to OLD GOLD $player1")
     println()
-    val player2 = getName("Player Two, What is your name? ")
+    val player2 = getString("Player Two, What is your name? ")
     println()
     println("Welcome to OLD GOLD $player2")
     println()
@@ -61,7 +61,49 @@ fun main() {
 
     while (containsGold) {
         showGrid(box)
-        askForActions()
+
+        checkLastBox(box)
+        while (true) {
+            println("Do you want to:")
+            val move = getString(
+                "[M]ove a coin" + if (takeCoin) " [T]ake coin" else {
+                }
+            )
+            when (move) {
+                "T" ->
+
+                    if (takeCoin) {
+                        box.removeAt(0)
+                        box.add(0, EMPTY)
+                        break
+                    }
+                    else {
+                        println("There is no coin to take!")
+
+                    }
+
+                "M" ->
+                    while (true) {
+                        println("What coin do you want to move?" + checkMovableCoins(box))
+                        val selectedCoin = readln().toIntOrNull()
+                        if (selectedCoin != null && checkMovableCoins(box).contains(selectedCoin)) {
+                            val availableSpaces = mutableListOf<Int>()
+                            val nextCoin = 5
+                            availableSpaces.add(1..nextCoin)
+                            while (true) {
+                                println("how many spaces do you want to move?" + availableSpaces)
+                                val selectedMoves = readln().toIntOrNull()
+                                if (selectedMoves != null && availableSpaces.contains(selectedMoves)) {
+                                    break
+                                }
+
+                            }
+                            break
+
+                        }
+                    }
+            }
+        }
 
 
 
@@ -73,7 +115,7 @@ fun main() {
 /**
  * gets users name and checks if there is an actual value there
  */
-fun getName(prompt: String): String {
+fun getString(prompt: String): String {
     var userInput: String
 
     while (true) {
@@ -191,13 +233,3 @@ fun checkGoldCoin(grid: List<String>) {
     }
 }
 
-fun askForActions (){
-    checkMovableCoins()
-    checkLastBox()
-    println("Do you want to:")
-    println("[M]ove a coin" + availabelCoins)
-    if checkLastBox () {
-        println("[T]ake the last Coin")
-    }
-
-}
