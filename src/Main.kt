@@ -57,12 +57,21 @@ fun main() {
     val playerCoinNum = getCoins("There are $NUMBOXES boxes. How many Coins do you want to play with (5-15)?")
 // sets up grid and displays it
     val box = setupGrid(playerCoinNum)
-
+    var currentPlayer = 1
 
     while (containsGold) {
+        checkGoldCoin(box)
         showGrid(box)
-
         checkLastBox(box)
+        if(currentPlayer == 1) {
+            println("Player 1, Your Turn")
+            currentPlayer = 2
+        }
+        else {
+            println("Player 2, Your Turn")
+            currentPlayer = 1
+        }
+
         while (true) {
             println("Do you want to:")
             val move = getString("[M]ove a coin" + if (takeCoin) " [T]ake coin" else {})
@@ -78,34 +87,33 @@ fun main() {
                         println("There is no coin to take!")
 
                     }
-
                 "M" ->
                     while (true) {
                         println("What coin do you want to move?" + checkMovableCoins(box))
                         val selectedCoin = readln().toIntOrNull()
                         if (selectedCoin != null && checkMovableCoins(box).contains(selectedCoin)) {
                             val availableSpaces = mutableListOf<Int>()
-                            val nextCoin = 5
-                            for (i in 1..nextCoin) {
-                                availableSpaces.add(i)
+                            val listIterator = box.listIterator()
+                            var numSpaces = 0
+
+                            for (i in ().indexOf(listIterator)) {
+                                availableSpaces.add(numSpaces)
+                                numSpaces += 1
                             }
+
+
                             while (true) {
                                 println("how many spaces do you want to move? $availableSpaces")
                                 val selectedMoves = readln().toIntOrNull()
                                 if (selectedMoves != null && availableSpaces.contains(selectedMoves)) {
                                     break
                                 }
-
                             }
                             break
-
                         }
                     }
             }
         }
-
-
-
     }
 
 
@@ -231,4 +239,5 @@ fun checkGoldCoin(grid: List<String>) {
          containsGold = false
     }
 }
+
 
