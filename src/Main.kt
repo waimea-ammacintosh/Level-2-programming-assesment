@@ -1,3 +1,5 @@
+import kotlin.collections.EmptyList.indexOf
+
 /**
  * =====================================================================
  * Programming Project for NCEA Level 2, Standard 91896
@@ -91,22 +93,20 @@ fun main() {
                         val selectedCoin = readln().toIntOrNull()
                         if (selectedCoin != null && checkMovableCoins(box).contains(selectedCoin)) {
                             val availableSpaces = mutableListOf<Int>()
-                            val listIterator = box.listIterator()
-                            var numSpaces = 0
-
-//                            for (i in ().indexOf(listIterator)) {
-//                                availableSpaces.add(numSpaces)
-//                                numSpaces += 1
-//                            }
-
-
+                            var numSpaces = 1
+                            for (i in box.indexOf{SILVER} downTo box.lastIndexOf(SILVER)) {
+                                availableSpaces.add(numSpaces)
+                                numSpaces++
+                            }
+                            var selectedMoves = 0
                             while (true) {
                                 println("how many spaces do you want to move? $availableSpaces")
-                                val selectedMoves = readln().toIntOrNull()
+                                selectedMoves = readln().toIntOrNull()
                                 if (selectedMoves != null && availableSpaces.contains(selectedMoves)) {
                                     break
                                 }
                             }
+                            moveCoin(box, selectedMoves, selectedCoin)
                             break
                         }
                     }
@@ -247,4 +247,8 @@ fun checkGoldCoin(grid: List<String>) {
     }
 }
 
+fun moveCoin(grid:MutableList<String>, spacesMoving: Int, movingCoin:Int) {
+    if
 
+
+}
