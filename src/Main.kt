@@ -55,7 +55,7 @@ fun main() {
     println()
     //gets amount of coins to play with
     val playerCoinNum = getCoins("There are $NUMBOXES boxes. How many Coins do you want to play with (5-15)?")
-// sets up grid and displays it
+    // sets up grid and displays it
     val box = setupGrid(playerCoinNum)
     var currentPlayer = 1
 
@@ -64,17 +64,15 @@ fun main() {
         showGrid(box)
         checkLastBox(box)
         if(currentPlayer == 1) {
-            println("Player 1, Your Turn")
-            currentPlayer = 2
+            println("$player1, Your Turn")
         }
         else {
-            println("Player 2, Your Turn")
-            currentPlayer = 1
+            println("$player2, Your Turn")
         }
 
         while (true) {
             println("Do you want to:")
-            val move = getString("[M]ove a coin" + if (takeCoin) " [T]ake coin" else {})
+            val move = getString("[M]ove a coin" + if (takeCoin) " [T]ake coin" else "")
             when (move) {
                 "T" ->
 
@@ -96,10 +94,10 @@ fun main() {
                             val listIterator = box.listIterator()
                             var numSpaces = 0
 
-                            for (i in ().indexOf(listIterator)) {
-                                availableSpaces.add(numSpaces)
-                                numSpaces += 1
-                            }
+//                            for (i in ().indexOf(listIterator)) {
+//                                availableSpaces.add(numSpaces)
+//                                numSpaces += 1
+//                            }
 
 
                             while (true) {
@@ -114,6 +112,13 @@ fun main() {
                     }
             }
         }
+        if (currentPlayer == 1) {
+            currentPlayer = 2
+        }
+        else {
+            currentPlayer = 1
+        }
+
     }
 
 
@@ -174,7 +179,7 @@ fun setupGrid(numCoins: Int): MutableList<String> {
 
                 grid.add(indexNum, SILVER)
                 grid.removeAt(indexNum+1)
-                availableIndex.removeAt(indexNum)
+                availableIndex.remove(indexNum)
                 break
             }
         }
@@ -213,19 +218,21 @@ fun getCoins(prompt: String): Int {
 
 fun checkLastBox (grid: List<String>): Boolean {
     if (grid.first() == EMPTY) {
-         takeCoin = true
+         takeCoin = false
     }
     else {
-         takeCoin = false
+         takeCoin = true
     }
     return takeCoin
 }
 
 fun checkMovableCoins (grid: List<String>): MutableList<Int> {
     val availableCoins = mutableListOf<Int>()
+    var coinOrder = 1
     for (i in grid) {
         if (i.contains(SILVER) or i.contains(GOLD)) {
-            availableCoins.add(i.indexOf(i) + 1)
+            availableCoins.add(coinOrder)
+            coinOrder ++
         }
     }
     return availableCoins
