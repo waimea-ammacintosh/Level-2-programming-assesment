@@ -1,5 +1,3 @@
-import kotlin.collections.EmptyList.indexOf
-
 /**
  * =====================================================================
  * Programming Project for NCEA Level 2, Standard 91896
@@ -58,13 +56,13 @@ fun main() {
     //gets amount of coins to play with
     val playerCoinNum = getCoins("There are $NUMBOXES boxes. How many Coins do you want to play with (5-15)?")
     // sets up grid and displays it
-    val box = setupGrid(playerCoinNum)
+    val grid = setupGrid(playerCoinNum)
     var currentPlayer = 1
 
     while (containsGold) {
-        checkGoldCoin(box)
-        showGrid(box)
-        checkLastBox(box)
+        checkGoldCoin(grid)
+        showGrid(grid)
+        checkLastBox(grid)
         if(currentPlayer == 1) {
             println("$player1, Your Turn")
         }
@@ -74,13 +72,13 @@ fun main() {
 
         while (true) {
             println("Do you want to:")
-            val move = getString("[M]ove a coin" + if (takeCoin) " [T]ake coin" else "")
+            val move = getString("[M]ove a coin " + if (takeCoin) "[T]ake coin " else "")
             when (move) {
                 "T" ->
 
                     if (takeCoin) {
-                        box.removeAt(0)
-                        box.add(0, EMPTY)
+                        grid.removeAt(0)
+                        grid.add(0, EMPTY)
                         break
                     }
                     else {
@@ -89,29 +87,21 @@ fun main() {
                     }
                 "M" ->
                     while (true) {
-                        println("What coin do you want to move?" + checkMovableCoins(box))
+                        println("What box contains the coin you wish to move? (select from " + 1..grid.size.toString() +")")
                         val selectedCoin = readln().toIntOrNull()
-                        if (selectedCoin != null && checkMovableCoins(box).contains(selectedCoin)) {
-                            val availableSpaces = mutableListOf<Int>()
-                            var numSpaces = 1
-                            for (i in box.indexOf{SILVER} downTo box.lastIndexOf(SILVER)) {
-                                availableSpaces.add(numSpaces)
-                                numSpaces++
-                            }
-                            var selectedMoves = 0
-                            while (true) {
-                                println("how many spaces do you want to move? $availableSpaces")
-                                selectedMoves = readln().toIntOrNull()
-                                if (selectedMoves != null && availableSpaces.contains(selectedMoves)) {
-                                    break
-                                }
-                            }
-                            moveCoin(box, selectedMoves, selectedCoin)
+
+                        if (selectedCoin != null && grid[selectedCoin-1] != EMPTY && grid[selectedCoin-2] == EMPTY) {
+                            val movingCoin = grid[selectedCoin-1]
+                            moveCoin(grid, selectedCoin-1, movingCoin)
                             break
+                        } else {
+                            println("There is no movable coin in that box")
                         }
                     }
             }
+            break
         }
+        checkGoldCoin(grid)
         if (currentPlayer == 1) {
             currentPlayer = 2
         }
@@ -120,7 +110,14 @@ fun main() {
         }
 
     }
-
+    if (currentPlayer == 2) {
+        println()
+        println("$player1, You win!!!")
+    }
+    else {
+        println()
+        println("$player2, You win!!!")
+    }
 
 }
 
@@ -134,7 +131,7 @@ fun getString(prompt: String): String {
         print(prompt)
 //checks for user input and if it is not blank. if so, it will break from the loop,
 // but it will continue looping if the user inputs nothing.
-        userInput = readln()
+        userInput = readln().uppercase()
         if (userInput.isNotBlank()) break
 
     }
@@ -189,13 +186,16 @@ fun setupGrid(numCoins: Int): MutableList<String> {
         val goldIndexNum = (0..<NUMBOXES-1).random()
         if (availableIndex.contains(goldIndexNum) && grid[goldIndexNum].contains(EMPTY)) {
             grid.add(goldIndexNum, GOLD)
-            grid.removeAt(goldIndexNum - 1)
+            grid.removeAt(goldIndexNum+1)
             break
         }
     }
     return grid
 }
 
+/**
+ * gets the num of coins from user
+ */
 fun getCoins(prompt: String): Int {
     var intValue: Int?
 
@@ -216,6 +216,9 @@ fun getCoins(prompt: String): Int {
     return intValue!!
 }
 
+/**
+ * checks if there is a coin in the last spot to take
+ */
 fun checkLastBox (grid: List<String>): Boolean {
     if (grid.first() == EMPTY) {
          takeCoin = false
@@ -226,17 +229,6 @@ fun checkLastBox (grid: List<String>): Boolean {
     return takeCoin
 }
 
-fun checkMovableCoins (grid: List<String>): MutableList<Int> {
-    val availableCoins = mutableListOf<Int>()
-    var coinOrder = 1
-    for (i in grid) {
-        if (i.contains(SILVER) or i.contains(GOLD)) {
-            availableCoins.add(coinOrder)
-            coinOrder ++
-        }
-    }
-    return availableCoins
-}
 
 fun checkGoldCoin(grid: List<String>) {
     if (grid.contains(GOLD))  {
@@ -247,8 +239,42 @@ fun checkGoldCoin(grid: List<String>) {
     }
 }
 
-fun moveCoin(grid:MutableList<String>, spacesMoving: Int, movingCoin:Int) {
-    if
+fun moveCoin(grid:MutableList<String>, movingCoinIndex: Int, coin: String) {
+    while (true) {
+        println("how many spaces do you want to move?")
+        val moveSpaces = readln().toIntOrNull()
+        if (isMoveValid(grid, moveSpaces, movingCoinIndex)) {
+            grid.removeAt(movingCoinIndex)
+            grid.add(movingCoinIndex-moveSpaces!!, coin)
+            break
+        }
+    }
 
 
+}
+
+fun isMoveValid (grid: List<String>, moveSpaces: Int?, movingCoinIndex: Int): Boolean {
+    //check if the input entered is a positive number
+    if (moveSpaces == null) {
+        println("The value you entered isn't valid.")
+        return false
+    }
+    val coinDestination = movingCoinIndex - moveSpaces
+    //check if the number of spaces moving is not off the end of the board
+    if (coinDestination < 0 ) {
+        println("The value you entered moves the coin off the board.")
+        return false
+    }
+    //check if the new space is empty
+    if (grid[coinDestination] != EMPTY) {
+        println("The value you entered moves the coin onto another coin.")
+        return false
+    }
+    //check if the new space does not contain any coins between it and the original space
+    val slicedList = grid.subList(coinDestination, movingCoinIndex)
+    if (!grid.subList(coinDestination, movingCoinIndex).contains(EMPTY)) {
+        println("There is a coin in the way of that move.")
+        return false
+    }
+    return true
 }

@@ -20,13 +20,13 @@ The program worked as expected. When I entered the in bound numbers, it allowed 
 
 ---
 
-## Example Test Name
+## Grid set-up
 
-Example test description. Example test description.Example test description. Example test description.Example test description. Example test description.
+THis is a test to make sure that the grid is initaly set up with the correct num of coins
 
 ### Test Data Used
 
-Details of test data. Details of test data. Details of test data. Details of test data. Details of test data. Details of test data. Details of test data.
+i will run the game multiple times to make sure it sets it up every time
 
 ### Test Result
 
@@ -36,3 +36,17 @@ Comment on test result. Comment on test result. Comment on test result. Comment 
 
 ---
 
+## Game end
+
+THis is a test to make sure that the game ends and displays the right winner
+
+### Test Data Used
+
+i will run the game multiple times to make sure it works every time
+### Test Result
+
+![example.png](screenshots/example.png)
+
+Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result.
+
+---

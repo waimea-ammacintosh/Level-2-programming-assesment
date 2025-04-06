@@ -10,11 +10,13 @@ The development log captures key moments in your application development:
 
 ---
 
-## Date: 20/03/2025
+## Date: 06/04/2025
 
-Example description and notes. Example description and notes. Example description and notes. Example description and notes. Example description and notes. Example description and notes.
+when you try move a coin one space, the program automatically doesn't like it and says you cant move it there as there
+are no available spaces. So to fix this i changed one of my lines from if (!grid.sliced(coinDestination, movingCoinIndex).contains(EMPTY)) {
+to if (!grid.subList(coinDestination, movingCoinIndex).contains(EMPTY)) { which fixed the problem.
 
-![example.png](screenshots/example.png)
+before: ![example.png](screenshots/example.png) after:
 
 ---
 

@@ -66,17 +66,17 @@ when the silver coin is taken, the coin should disappear, and the game should co
 
 ---
 
-## Example Test Name
+## Game end
 
-Example test description. Example test description. Example test description. Example test description. Example test description. Example test description.
+THis is a test to make sure that the game ends and displays the right winner
 
 ### Test Data To Use
 
-Details of test data and reasons for selection. Details of test data and reasons for selection. Details of test data and reasons for selection.
+i will run the game multiple times to make sure it works every time
 
 ### Expected Test Result
 
-Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen.
+when player 1 takes the gold coin, it should say player one wins and when player 2 takes the gold coin, it should say player3 wins.
 
 ---
 
