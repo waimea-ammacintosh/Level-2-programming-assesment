@@ -16,7 +16,8 @@ Using these values will allow me to check if my boundaries (5 and 15) still work
 
 ![Coin input test](captures/CoinNum.gif)
 
-The program worked as expected. When I entered the in bound numbers, it allowed it to pass, and it did not allow out of bound or non-integer inputs.
+The program worked as expected. When I entered the in bound numbers, it allowed it to pass, and it did not allow out of bound or non-integer inputs. 
+This is what I expected to happen and my program easily handled the invalid errors
 
 ---
 
@@ -27,19 +28,19 @@ THis is a test to make sure that the grid is initially set up with the correct n
 ### Test Data Used
 
 I will run the program multiple times, making sure the grid displays the right amount of coins as the user inputs,
-and i will use different numbers of coins each time
+and I will use different numbers of coins each time.
 
 ### Test Result
 
 ![Grid setup](captures/GridSetup.gif)
 
-every time the grid was set up, it was able to handle the right amount of coins, and add them randomly to the grid.
+every time the grid was set up, it was able to handle the right amount of coins, and add them randomly to the grid. This is what I expected to happen.
 
 ---
 
 ## Game end
 
-THis is a test to make sure that the game ends and displays the right winner
+This is a test to make sure that the game ends and displays the right winner
 
 ### Test Data Used
 
@@ -66,18 +67,18 @@ i will take a few turns to check if it always tells me who's turn it is
 
 ![Turn Change](captures/TurnChange.gif)
 
-every single time, after each player finished their turn, it consistantly changes the player to the other player
+every single time, after each player finished their turn, it consistently changes the player to the other player. This is what I expected to happen.
 
 ---
 
 ## Player moves
 
-THis is a test to make sure that when a player moves or takes a coin, it moves the coin teh right amount or takes the right coin
+This is a test to make sure that when a player moves or takes a coin, it moves the coin the right amount or takes the right coin
 
 ### Test Data To Use
 
-i will do three different moves, and take three different coins to make sure it works every time.
-i will also try to input some invalid moves, like (blank), 5, and b. i will also try to take a coin when you can not and move a coin that isnt there.
+I will do three different moves, and take three different coins to make sure it works every time.
+I will also try to input some invalid moves, like (blank), 5, and b. I will also try to take a coin when you can not and move a coin that isnt there.
 
 ### Test Result
 
@@ -97,8 +98,11 @@ I will take a coin when there is a silver coin there, a gold coin there, and wil
 
 ### Test Result
 
-![example.png](screenshots/example.png)
+![TakeCoin](captures/TakeCoin.gif)
 
-Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result.
+When I took a silver coin, the silver coin disappeared, and was replaced by an empty space, so the coin was taken. 
+When I took the gold coin, the gold coin disappeared, and was replaced by an empty space, so the coin was taken.
+When I tried to take a coin that wasn't there, it told me I could not take this coin.
+All these results line up with what I expected to happen, and my program easily handled the unexpected, invalid inputs.
 
 ---

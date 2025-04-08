@@ -22,12 +22,12 @@ var takeCoin = false
 fun main() {
     //intro and instructions
     println("Welcome to...")
-    println(" _____ _    ______   _____ _____ _    ______ \n" +
-            "|  _  | |   |  _  \\ |  __ \\  _  | |   |  _  \\\n" +
-            "| | | | |   | | | | | |  \\/ | | | |   | | | |\n" +
-            "| | | | |   | | | | | | __| | | | |   | | | |\n" +
-            "\\ \\_/ / |___| |/ /  | |_\\ \\ \\_/ / |___| |/ / \n" +
-            " \\___/\\_____/___/    \\____/\\___/\\_____/___/  ")
+    println(" _____ _    ______   _____ _____ _    ______ \n".yellow() +
+            "|  _  | |   |  _  \\ |  __ \\  _  | |   |  _  \\\n".yellow() +
+            "| | | | |   | | | | | |  \\/ | | | |   | | | |\n".yellow() +
+            "| | | | |   | | | | | | __| | | | |   | | | |\n".yellow() +
+            "\\ \\_/ / |___| |/ /  | |_\\ \\ \\_/ / |___| |/ / \n".yellow() +
+            " \\___/\\_____/___/    \\____/\\___/\\_____/___/  ".yellow())
 
     println()
     println()
@@ -59,11 +59,11 @@ fun main() {
     val grid = setupGrid(playerCoinNum)
     var currentPlayer = 1
     //main loop
-    while (containsGold) {
+    while (true) {
         //shows the grid and checks for if there is a coin to take in last box
         showGrid(grid)
         checkLastBox(grid)
-        //displays the corrrect player
+        //displays the correct player
         if(currentPlayer == 1) {
             println("$player1, Your Turn")
         }
@@ -110,6 +110,9 @@ fun main() {
         }
         //checks if gold coin is still in play
         checkGoldCoin(grid)
+        if (!containsGold){
+            break
+        }
         //changes players
         if (currentPlayer == 1) {
             currentPlayer = 2
@@ -119,9 +122,9 @@ fun main() {
         }
 
     }
-    //if the player is P2, then player 1 took the gold coin and then the player was changed before the loop restarted, so it says that player 1 won,
-    // else player 2 won, and it says player 2 won.
-    if (currentPlayer == 2) {
+    //if the player that was the current player while the game ended was player 1, it will say player 1 won as they took the coin
+    //else it will say player 2 won as they must have been the one to take the coin if it wa not player 1
+    if (currentPlayer == 1) {
         println()
         println("$player1, You win!!!")
     }
@@ -152,26 +155,28 @@ fun getString(prompt: String): String {
 }
 
 /**
- * shows the grid every turn
- * takes in the main list
- * outputs a formatted version of the list to make it visually nice to the user
- *
+ * gets the num of coins from user.
+ * takes a string input from the user and returns it as an Int,
+ * or if it is not a number, returns it as Null and repeats until a number between 5-15 is inputted.
+ * if the number inputted is not within the specified range, it will not allow the number, and ask for another number.
  */
-fun showGrid(grid: List<String>) {
-    val divider = "+---".repeat(grid.size) + "+"
-// prints out the grid by repeating the numbers on top and the divider and printing the values in it and prints end lines.
-    println()
-    println("OLD GOLD")
-    for (i in grid.indices) print("  ${i + 1}".padEnd(4))
-    println()
-    println(divider)
-    for (box in grid) {
-        print("| $box ")
+fun getCoins(prompt: String): Int {
+    var intValue: Int?
+    while (true) {
+        print(prompt)
+        val userInput = readln()
+        intValue = userInput.toIntOrNull()
+        if (intValue != null) {
+            if (intValue in 5..15) break
+            else {
+                println("That's not a valid number.")
+            }
+        }
+        else {
+            println("That's not a valid number.")
+        }
     }
-
-    println("|")
-
-    println(divider)
+    return intValue!!
 }
 
 /**
@@ -214,28 +219,30 @@ fun setupGrid(numCoins: Int): MutableList<String> {
 }
 
 /**
- * gets the num of coins from user.
- * takes a string input from the user and returns it as an Int,
- * or if it is not a number, returns it as Null and repeats until a number between 5-15 is inputted.
- * if the number inputted is not within the specified range, it will not allow the number, and ask for another number.
+ * shows the grid every turn
+ * takes in the main list
+ * outputs a formatted version of the list to make it visually nice to the user like this
+ *   1   2   3   4   5
+ * +---+---+---+---+---+
+ * | S |   |   | S | S | ect.
+ * +---+---+---+---+---+
+ *
  */
-fun getCoins(prompt: String): Int {
-    var intValue: Int?
-    while (true) {
-        print(prompt)
-        val userInput = readln()
-        intValue = userInput.toIntOrNull()
-        if (intValue != null) {
-            if (intValue in 5..15) break
-            else {
-                println("That's not a valid number.")
-            }
-        }
-        else {
-            println("That's not a valid number.")
-        }
+fun showGrid(grid: List<String>) {
+    val divider = "+---".repeat(grid.size) + "+"
+// prints out the grid by repeating the numbers on top and the divider and printing the values in it and prints end lines.
+    println()
+    println("OLD GOLD")
+    for (i in grid.indices) print("  ${i + 1}".padEnd(4))
+    println()
+    println(divider)
+    for (box in grid) {
+        print("| $box ")
     }
-    return intValue!!
+
+    println("|")
+
+    println(divider)
 }
 
 /**
@@ -320,7 +327,6 @@ fun isMoveValid (grid: List<String>, moveSpaces: Int?, movingCoinIndex: Int): Bo
         return false
     }
     //check if the new space does not contain any coins between it and the original space
-    val slicedList = grid.subList(coinDestination, movingCoinIndex)
     if (!grid.subList(coinDestination, movingCoinIndex).contains(EMPTY)) {
         println("There is a coin in the way of that move.")
         return false

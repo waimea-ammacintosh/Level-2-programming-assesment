@@ -73,9 +73,9 @@ The program uses functions appropriately, where:
 
 The program code is well-commented:
 - [x] **JavaDoc Block comments** are used at the top of each **file** and **function**
-- [ ] Comments accurately describe the **function and behaviour** of the code:
+- [x] Comments accurately describe the **function and behaviour** of the code:
   - [x] Defining the **purpose** of functions / key blocks of code
-  - [ ] Explaining the **reason** (the '**why**') of key parts of the code
+  - [x] Explaining the **reason** (the '**why**') of key parts of the code
   - [x] Defining function **parameters** and/or **return values**
 
 ### Program Testing
@@ -106,7 +106,7 @@ Program flexibility and maintainability is aided by good program structure:
 ### Program Documentation
 
 The program code:
-- [ ] Code is laid-out and organised **logically and concisely**
+- [x] Code is laid-out and organised **logically and concisely**
 
 ### Program Testing
 
@@ -114,4 +114,4 @@ The program has been tested to be **robust**:
 - [x] With a **comprehensive and thorough** test plan
 - [x] Testing **regularly** throughput development, allowing **time for debugging**
 - [x] Using test values that cover **invalid** (unexpected) cases
-- [ ] Resulting in a program that **copes appropriately** with invalid inputs
+- [x] Resulting in a program that **copes appropriately** with invalid inputs
