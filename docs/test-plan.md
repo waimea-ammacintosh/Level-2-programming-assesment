@@ -30,7 +30,8 @@ This is to check if my grid will set up right every time i set up my game
 
 ### Test Data To Use
 
-I will run the program multiple times, making sure the grid displays the right amount of coins as the user inputs
+I will run the program multiple times, making sure the grid displays the right amount of coins as the user inputs,
+and i will use different numbers of coins each time
 
 ### Expected Test Result
 
@@ -76,7 +77,22 @@ i will run the game multiple times to make sure it works every time
 
 ### Expected Test Result
 
-when player 1 takes the gold coin, it should say player one wins and when player 2 takes the gold coin, it should say player3 wins.
+when player 1 takes the gold coin, it should say player one wins and when player 2 takes the gold coin, it should say player2 wins.
 
 ---
 
+## Player moves
+
+THis is a test to make sure that when a player moves or takes a coin, it moves the coin teh right amount or takes the right coin
+
+### Test Data To Use
+
+i will do three different moves, and take three different coins to make sure it works every time. 
+i will also try to input some invalid moves, like (blank), 5, and b. i will also try to take a coin when you can not and move a coin that isnt there.
+
+### Expected Test Result
+
+the coin should always move the specified amount, and when the coin is taken, the last coin only is taken. when i input the invalid inputs, 
+it should try tell me to try do a valid move
+
+---

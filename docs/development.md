@@ -16,15 +16,15 @@ when you try move a coin one space, the program automatically doesn't like it an
 are no available spaces. So to fix this i changed one of my lines from if (!grid.sliced(coinDestination, movingCoinIndex).contains(EMPTY)) {
 to if (!grid.subList(coinDestination, movingCoinIndex).contains(EMPTY)) { which fixed the problem.
 
-before: ![example.png](screenshots/example.png) after:
+![example.png](screenshots/example.png)
 
 ---
 
-## Date: xx/xx/20xx
+## Date: 08/04/2025
 
-Example description and notes. Example description and notes. Example description and notes. Example description and notes. Example description and notes. Example description and notes.
+I added the number of the cells above every cell, so the user can more easily locate what cell contains the coin they want to move
 
-![example.png](screenshots/example.png)
+![cell numbers](screenshots/cellNum.png)
 
 ---
 

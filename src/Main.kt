@@ -58,50 +58,59 @@ fun main() {
     // sets up grid and displays it
     val grid = setupGrid(playerCoinNum)
     var currentPlayer = 1
-
+    //main loop
     while (containsGold) {
-        checkGoldCoin(grid)
+        //shows the grid and checks for if there is a coin to take in last box
         showGrid(grid)
         checkLastBox(grid)
+        //displays the corrrect player
         if(currentPlayer == 1) {
             println("$player1, Your Turn")
         }
         else {
             println("$player2, Your Turn")
         }
-
+        //loop for getting the players move, and proceeding with the action
         while (true) {
             println("Do you want to:")
             val move = getString("[M]ove a coin " + if (takeCoin) "[T]ake coin " else "")
             when (move) {
                 "T" ->
-
+                    //check if there is a coin to take, it will take it
                     if (takeCoin) {
                         grid.removeAt(0)
                         grid.add(0, EMPTY)
                         break
                     }
+                    //else it will display an error message, loop back to ask the user what they actually want to do for their turn.
                     else {
                         println("There is no coin to take!")
-
+                        continue
                     }
                 "M" ->
+                    //checks with the user what coin is to move
                     while (true) {
                         println("What box contains the coin you wish to move? (select from " + 1..grid.size.toString() +")")
                         val selectedCoin = readln().toIntOrNull()
-
+                        //Checks if the coin is available to move. if so, it asks how much it wants to move, and checks if that is an available length of movement.
+                        // If so it moves the coin the specified amount
                         if (selectedCoin != null && grid[selectedCoin-1] != EMPTY && grid[selectedCoin-2] == EMPTY) {
                             val movingCoin = grid[selectedCoin-1]
                             moveCoin(grid, selectedCoin-1, movingCoin)
                             break
+                        //else prints an error message and asks them to choose a different coin
                         } else {
                             println("There is no movable coin in that box")
+                            continue
                         }
                     }
+                else -> continue
             }
             break
         }
+        //checks if gold coin is still in play
         checkGoldCoin(grid)
+        //changes players
         if (currentPlayer == 1) {
             currentPlayer = 2
         }
@@ -110,6 +119,8 @@ fun main() {
         }
 
     }
+    //if the player is P2, then player 1 took the gold coin and then the player was changed before the loop restarted, so it says that player 1 won,
+    // else player 2 won, and it says player 2 won.
     if (currentPlayer == 2) {
         println()
         println("$player1, You win!!!")
@@ -123,6 +134,8 @@ fun main() {
 
 /**
  * gets users name and checks if there is an actual value there
+ * gets a String from the user
+ * returns the String in all uppercase, or tells them to retry if they do not enter anything
  */
 fun getString(prompt: String): String {
     var userInput: String
@@ -140,12 +153,17 @@ fun getString(prompt: String): String {
 
 /**
  * shows the grid every turn
+ * takes in the main list
+ * outputs a formatted version of the list to make it visually nice to the user
+ *
  */
 fun showGrid(grid: List<String>) {
     val divider = "+---".repeat(grid.size) + "+"
-// prints out the grid by repeating the divider and printing the values in it and prints end lines.
+// prints out the grid by repeating the numbers on top and the divider and printing the values in it and prints end lines.
     println()
     println("OLD GOLD")
+    for (i in grid.indices) print("  ${i + 1}".padEnd(4))
+    println()
     println(divider)
     for (box in grid) {
         print("| $box ")
@@ -159,6 +177,8 @@ fun showGrid(grid: List<String>) {
 /**
  * sets up the grid at the start of the game.
  * also adds the right amount of coins.
+ * takes in an Int as the amount of coins the user inputs, and adds them randomly in the grid
+ * returns the main list for the game
  */
 fun setupGrid(numCoins: Int): MutableList<String> {
     val grid = mutableListOf<String>()
@@ -194,11 +214,13 @@ fun setupGrid(numCoins: Int): MutableList<String> {
 }
 
 /**
- * gets the num of coins from user
+ * gets the num of coins from user.
+ * takes a string input from the user and returns it as an Int,
+ * or if it is not a number, returns it as Null and repeats until a number between 5-15 is inputted.
+ * if the number inputted is not within the specified range, it will not allow the number, and ask for another number.
  */
 fun getCoins(prompt: String): Int {
     var intValue: Int?
-
     while (true) {
         print(prompt)
         val userInput = readln()
@@ -217,35 +239,56 @@ fun getCoins(prompt: String): Int {
 }
 
 /**
- * checks if there is a coin in the last spot to take
+ * checks if there is a coin in the last spot to take.
+ * it takes in the main list and checks if there is a coin in the last box to take.
+ * returns either true if there is a coin there, else it returns false.
  */
 fun checkLastBox (grid: List<String>): Boolean {
+    //checks if the first grid contains no coin
     if (grid.first() == EMPTY) {
          takeCoin = false
     }
+    //if there is a coin
     else {
          takeCoin = true
     }
+    //returns either true or false depending on if there is a coin or not
     return takeCoin
 }
 
-
+/**
+ * checks the grid to check if the gold coin is in play.
+ * takes the main grid and checks if the gold coin is in the list
+ * changes the value of contains gold to either true or false depending on if it contains it or not
+ */
 fun checkGoldCoin(grid: List<String>) {
+    //checks if the gold coin is in the grid
     if (grid.contains(GOLD))  {
          containsGold = true
     }
+    //if it is not
     else {
          containsGold = false
     }
 }
 
+/**
+ * this function takes care of moving the coin from its previous spot to its new spot.
+ * it takes the main grid, the index of the moving coin and the actual coin on the grid.
+ * changes the main list to be updated to the new list with the moved coin
+ */
 fun moveCoin(grid:MutableList<String>, movingCoinIndex: Int, coin: String) {
+    //loop to prevent invalid inputs
     while (true) {
         println("how many spaces do you want to move?")
+        //takes the users input and changes it into an int or returns null if not an int
         val moveSpaces = readln().toIntOrNull()
+        //checks if the move is valid through the function below
         if (isMoveValid(grid, moveSpaces, movingCoinIndex)) {
+            //removes coin and adds it in its new place
             grid.removeAt(movingCoinIndex)
             grid.add(movingCoinIndex-moveSpaces!!, coin)
+            //breaks from the loop
             break
         }
     }
@@ -253,6 +296,12 @@ fun moveCoin(grid:MutableList<String>, movingCoinIndex: Int, coin: String) {
 
 }
 
+/**
+ * this function checks if the move the user is trying to preform
+ * (as in if the amount of spaces they are moving is valid)
+ * takes in the main grid, the amount of spaces the coin is going to move, and the starting index of the moving coin
+ * returns false if it fails only one of the tests or true if all the tests are passed
+ */
 fun isMoveValid (grid: List<String>, moveSpaces: Int?, movingCoinIndex: Int): Boolean {
     //check if the input entered is a positive number
     if (moveSpaces == null) {
