@@ -94,6 +94,22 @@ fun main() {
                         val selectedCoin = readln().toIntOrNull()
                         //Checks if the coin is available to move. if so, it asks how much it wants to move, and checks if that is an available length of movement.
                         // If so it moves the coin the specified amount
+                        if (selectedCoin == 1) {
+                            println("You can't move that coin")
+                            continue
+                        }
+                        if (selectedCoin != null) {
+                            if (selectedCoin > NUMBOXES) {
+                                println("That isn't a valid box")
+                                continue
+                            }
+                        }
+                        if (selectedCoin != null) {
+                            if (selectedCoin < 0) {
+                                println("That isn't a valid box")
+                                continue
+                            }
+                        }
                         if (selectedCoin != null && grid[selectedCoin-1] != EMPTY && grid[selectedCoin-2] == EMPTY) {
                             val movingCoin = grid[selectedCoin-1]
                             moveCoin(grid, selectedCoin-1, movingCoin)
@@ -315,6 +331,10 @@ fun isMoveValid (grid: List<String>, moveSpaces: Int?, movingCoinIndex: Int): Bo
         println("The value you entered isn't valid.")
         return false
     }
+    if (moveSpaces < 0) {
+        println("The value you entered isn't valid.")
+        return false
+    }
     val coinDestination = movingCoinIndex - moveSpaces
     //check if the number of spaces moving is not off the end of the board
     if (coinDestination < 0 ) {
@@ -327,9 +347,13 @@ fun isMoveValid (grid: List<String>, moveSpaces: Int?, movingCoinIndex: Int): Bo
         return false
     }
     //check if the new space does not contain any coins between it and the original space
-    if (!grid.subList(coinDestination, movingCoinIndex).contains(EMPTY)) {
-        println("There is a coin in the way of that move.")
-        return false
+    val subList = grid.subList(coinDestination, movingCoinIndex)
+    for ( i in subList) {
+        if (i != EMPTY) {
+            println("There is a coin in the way of that move.")
+            return false
+        }
     }
+
     return true
 }

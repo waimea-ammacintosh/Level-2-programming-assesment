@@ -77,12 +77,14 @@ This is a test to make sure that when a player moves or takes a coin, it moves t
 
 ### Test Data To Use
 
-I will do three different moves, and take three different coins to make sure it works every time.
-I will also try to input some invalid moves, like (blank), 5, and b. I will also try to take a coin when you can not and move a coin that isnt there.
+I will do three different valid moves, and take three different coins to make sure it works every time.
+I will also try to input some invalid moves, like (blank), 5, and b.
+I will also try to take a coin when you can not and move a coin that isn't there and try to move a coin a negative amount and
+try to move a coin onto another coin and try to move a coin past another coin and try to move the coin in box 1.
 
 ### Test Result
 
-![example.png](screenshots/example.png)
+![example.png](captures/PlayerMoves)
 
 Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result.
 
