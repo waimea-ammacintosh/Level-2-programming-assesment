@@ -15,19 +15,19 @@
 val NUMBOXES = (15..25).random()
 const val EMPTY = " "
 val SILVER = "S".grey()
-val GOLD = "G".yellow()
+val GOLD = "G".col(164,129,17)
 var containsGold = true
 var takeCoin = false
 
 fun main() {
     //intro and instructions
     println("Welcome to...")
-    println(" _____ _    ______   _____ _____ _    ______ \n".yellow() +
-            "|  _  | |   |  _  \\ |  __ \\  _  | |   |  _  \\\n".yellow() +
-            "| | | | |   | | | | | |  \\/ | | | |   | | | |\n".yellow() +
-            "| | | | |   | | | | | | __| | | | |   | | | |\n".yellow() +
-            "\\ \\_/ / |___| |/ /  | |_\\ \\ \\_/ / |___| |/ / \n".yellow() +
-            " \\___/\\_____/___/    \\____/\\___/\\_____/___/  ".yellow())
+    println(" _____ _    ______   _____ _____ _    ______ \n".col(164,129,17) +
+            "|  _  | |   |  _  \\ |  __ \\  _  | |   |  _  \\\n".col(164,129,17) +
+            "| | | | |   | | | | | |  \\/ | | | |   | | | |\n".col(164,129,17) +
+            "| | | | |   | | | | | | __| | | | |   | | | |\n".col(164,129,17) +
+            "\\ \\_/ / |___| |/ /  | |_\\ \\ \\_/ / |___| |/ / \n".col(164,129,17) +
+            " \\___/\\_____/___/    \\____/\\___/\\_____/___/  ".col(164,129,17))
 
     println()
     println()
@@ -178,9 +178,13 @@ fun getString(prompt: String): String {
  */
 fun getCoins(prompt: String): Int {
     var intValue: Int?
+    //will keep looping until valid input is inputted
     while (true) {
+        //gets users input after asking the desired prompt
         print(prompt)
         val userInput = readln()
+        //checks if the inputted value is a valid input (is it a number, and is it in between 5 and 15).
+        //If not, it will ask the user for a valid input and run the loop again.
         intValue = userInput.toIntOrNull()
         if (intValue != null) {
             if (intValue in 5..15) break
@@ -202,9 +206,10 @@ fun getCoins(prompt: String): Int {
  * returns the main list for the game
  */
 fun setupGrid(numCoins: Int): MutableList<String> {
+    //sets up the initial iteration of the main game list
     val grid = mutableListOf<String>()
     for (i in 1..NUMBOXES) grid.add(EMPTY)
-
+    //sets up a list of all available indexes in the main list for a coin to go in.
     val availableIndex = mutableListOf<Int>()
     for (num in 0..<NUMBOXES) {
         availableIndex.add(num)
@@ -212,9 +217,8 @@ fun setupGrid(numCoins: Int): MutableList<String> {
 // sets up the silver coins to the desired level
     for (num in 1..<numCoins) {
         while (true) {
-            val indexNum = (0..<NUMBOXES-1).random()
+            val indexNum = (0..<NUMBOXES).random()
             if (availableIndex.contains(indexNum) && grid[indexNum].contains(EMPTY)) {
-
                 grid.add(indexNum, SILVER)
                 grid.removeAt(indexNum+1)
                 availableIndex.remove(indexNum)
@@ -224,7 +228,7 @@ fun setupGrid(numCoins: Int): MutableList<String> {
     }
     // sets up the gold coin
     while (true) {
-        val goldIndexNum = (0..<NUMBOXES-1).random()
+        val goldIndexNum = (0..<NUMBOXES).random()
         if (availableIndex.contains(goldIndexNum) && grid[goldIndexNum].contains(EMPTY)) {
             grid.add(goldIndexNum, GOLD)
             grid.removeAt(goldIndexNum+1)

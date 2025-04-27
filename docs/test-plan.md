@@ -86,11 +86,8 @@ when player 1 takes the gold coin, it should say player one wins and when player
 THis is a test to make sure that when a player moves or takes a coin, it moves the coin the right amount or takes the right coin
 
 ### Test Data To Use
+![img.png](img.png)
 
-I will do three different valid moves, and take three different coins to make sure it works every time. 
-I will also try to input some invalid moves, like (blank), 5, and b.
-I will also try to take a coin when you can not and move a coin that isn't there and try to move a coin a negative amount and 
-try to move a coin onto another coin and try to move a coin past another coin and try to move the coin in box 1.
 
 ### Expected Test Result
 

@@ -12,11 +12,11 @@ The development log captures key moments in your application development:
 
 ## Date: 06/04/2025
 
-when you try move a coin one space, the program automatically doesn't like it and says you cant move it there as there
-are no available spaces. So to fix this i changed one of my lines from if (!grid.sliced(coinDestination, movingCoinIndex).contains(EMPTY)) {
+when you tried to move a coin one space, the program automatically didn't like it and says you cant move it there as there
+are no available spaces. So to fix this I changed one of my lines from if (!grid.sliced(coinDestination, movingCoinIndex).contains(EMPTY)) {
 to if (!grid.subList(coinDestination, movingCoinIndex).contains(EMPTY)) { which fixed the problem.
 
-![example.png](screenshots/example.png)
+![fixed](captures/FixedOneSquareMove.gif)
 
 ---
 
@@ -28,11 +28,12 @@ I added the number of the cells above every cell, so the user can more easily lo
 
 ---
 
-## Date: xx/xx/20xx
+## Date: 28/04/2025
 
-Example description and notes. Example description and notes. Example description and notes. Example description and notes. Example description and notes. Example description and notes.
+found a bug in testing that did not allow for the coin to be placed in last square.
 
-![example.png](screenshots/example.png)
+before ![broken code](screenshots/BrokenCoinInput.png)
+after ![fixed code](screenshots/FixedCoinInput.png)
 
 ---
 
