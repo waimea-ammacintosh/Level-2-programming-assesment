@@ -37,9 +37,9 @@ after ![fixed code](screenshots/FixedCoinInput.png)
 
 ---
 
-## Date: xx/xx/20xx
+## Date: 29/04/2025
 
-Example description and notes. Example description and notes. Example description and notes. Example description and notes. Example description and notes. Example description and notes.
+In testing, I noticed that you could softlock the game. I added a function to prevent this from happening, and now it is impossible to softlock it.
 
 ![example.png](screenshots/example.png)
 

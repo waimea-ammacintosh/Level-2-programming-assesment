@@ -18,6 +18,7 @@ val SILVER = "S".grey()
 val GOLD = "G".col(164,129,17)
 var containsGold = true
 var takeCoin = false
+var isMovableCoins = false
 
 fun main() {
     //intro and instructions
@@ -63,6 +64,7 @@ fun main() {
         //shows the grid and checks for if there is a coin to take in last box
         showGrid(grid)
         checkLastBox(grid)
+        checkCoinsCanMove(grid, playerCoinNum)
         //displays the correct player
         if(currentPlayer == 1) {
             println("$player1, Your Turn")
@@ -73,7 +75,7 @@ fun main() {
         //loop for getting the players move, and proceeding with the action
         while (true) {
             println("Do you want to:")
-            val move = getString("[M]ove a coin " + if (takeCoin) "[T]ake coin " else "")
+            val move = getString(if (isMovableCoins) "[M]ove a coin " else ("") + if (takeCoin) "[T]ake coin " else (""))
             when (move) {
                 "T" ->
                     //check if there is a coin to take, it will take it
@@ -88,37 +90,43 @@ fun main() {
                         continue
                     }
                 "M" ->
-                    //checks with the user what coin is to move
-                    while (true) {
-                        println("What box contains the coin you wish to move? (select from " + 1..grid.size.toString() +")")
-                        val selectedCoin = readln().toIntOrNull()
-                        //Checks if the coin is available to move. if so, it asks how much it wants to move, and checks if that is an available length of movement.
-                        // If so it moves the coin the specified amount
-                        if (selectedCoin == 1) {
-                            println("You can't move that coin")
-                            continue
-                        }
-                        if (selectedCoin != null) {
-                            if (selectedCoin > NUMBOXES) {
-                                println("That isn't a valid box")
+                    if (isMovableCoins) {
+                        //checks with the user what coin is to move
+                        while (true) {
+                            println("What box contains the coin you wish to move? (select from " + 1..grid.size.toString() + ")")
+                            val selectedCoin = readln().toIntOrNull()
+                            //Checks if the coin is available to move. if so, it asks how much it wants to move, and checks if that is an available length of movement.
+                            // If so it moves the coin the specified amount
+                            if (selectedCoin == 1) {
+                                println("You can't move that coin")
+                                continue
+                            }
+                            if (selectedCoin != null) {
+                                if (selectedCoin > NUMBOXES) {
+                                    println("That isn't a valid box")
+                                    continue
+                                }
+                            }
+                            if (selectedCoin != null) {
+                                if (selectedCoin < 1) {
+                                    println("That isn't a valid box")
+                                    continue
+                                }
+                            }
+                            if (selectedCoin != null && grid[selectedCoin - 1] != EMPTY && grid[selectedCoin - 2] == EMPTY) {
+                                val movingCoin = grid[selectedCoin - 1]
+                                moveCoin(grid, selectedCoin - 1, movingCoin)
+                                break
+                                //else prints an error message and asks them to choose a different coin
+                            } else {
+                                println("There is no movable coin in that box")
                                 continue
                             }
                         }
-                        if (selectedCoin != null) {
-                            if (selectedCoin < 1) {
-                                println("That isn't a valid box")
-                                continue
-                            }
-                        }
-                        if (selectedCoin != null && grid[selectedCoin-1] != EMPTY && grid[selectedCoin-2] == EMPTY) {
-                            val movingCoin = grid[selectedCoin-1]
-                            moveCoin(grid, selectedCoin-1, movingCoin)
-                            break
-                        //else prints an error message and asks them to choose a different coin
-                        } else {
-                            println("There is no movable coin in that box")
-                            continue
-                        }
+                    }
+                    else {
+                        println("There is no movable coin!")
+                        continue
                     }
                 else -> continue
             }
@@ -360,4 +368,27 @@ fun isMoveValid (grid: List<String>, moveSpaces: Int?, movingCoinIndex: Int): Bo
     }
 
     return true
+}
+
+
+
+fun checkCoinsCanMove (grid: List<String>, numCoins: Int): Boolean {
+    val coinLocation = mutableListOf<String>()
+    for (i in grid)
+        if (i != EMPTY) {
+            coinLocation.add("coin")
+        }
+    else   coinLocation.add("Empty")
+
+    if (coinLocation.lastIndexOf("coin") + 1 == coinLocation.lastIndexOf("empty")) {
+        isMovableCoins = false
+    }
+    else isMovableCoins = true
+
+    if (numCoins == NUMBOXES) {
+        isMovableCoins = false
+    }
+    else isMovableCoins = true
+
+    return isMovableCoins
 }
