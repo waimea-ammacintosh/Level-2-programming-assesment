@@ -105,7 +105,7 @@ fun main() {
                             }
                         }
                         if (selectedCoin != null) {
-                            if (selectedCoin < 0) {
+                            if (selectedCoin < 1) {
                                 println("That isn't a valid box")
                                 continue
                             }

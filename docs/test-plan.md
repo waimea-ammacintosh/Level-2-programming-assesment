@@ -26,16 +26,16 @@ When I input 5 and 15, my program should allow these values to pass fine. When I
 
 ## Grid set-up
 
-This is to check if my grid will set up right every time i set up my game
+This is a test to make sure that the grid is initially set up with the correct num of coins and can handle edge tests (coin in the last slot, and first slot)e
 
 ### Test Data To Use
 
 I will run the program multiple times, making sure the grid displays the right amount of coins as the user inputs,
-and i will use different numbers of coins each time
+and I will use different numbers of coins each time
 
 ### Expected Test Result
 
-My program should consistently display the right amount of coins every time
+My program should consistently display the right amount of coins every time.
 
 ---
 
@@ -45,7 +45,7 @@ This is to test if the current player is changing between 1 and 2.
 
 ### Test Data To Use
 
-i will take a few turns to check if it always tells me who's turn it is
+I will take a few turns to check if it always tells me who's turn it is
 
 ### Expected Test Result
 
@@ -63,13 +63,13 @@ I will take a coin when there is a silver coin there, a gold coin there, and wil
 
 ### Expected Test Result
 
-when the silver coin is taken, the coin should disappear, and the game should continue, when i take the gold coin, the game should end, and when i take no coin, it should tell me i cant take a coin
+when the silver coin is taken, the coin should disappear, and the game should continue, when I take the gold coin, the game should end, and when I take no coin, it should tell me I cant take a coin
 
 ---
 
 ## Game end
 
-THis is a test to make sure that the game ends and displays the right winner
+This is a test to make sure that the game ends and displays the right winner
 
 ### Test Data To Use
 
@@ -83,15 +83,19 @@ when player 1 takes the gold coin, it should say player one wins and when player
 
 ## Player moves
 
-THis is a test to make sure that when a player moves or takes a coin, it moves the coin the right amount or takes the right coin
+This is a test to make sure that when a player moves or takes a coin, it moves the coin the right amount or takes the right coin
 
 ### Test Data To Use
-![img.png](img.png)
+
+I will do three different valid moves (one space, the maximum spaces the coin can move, and one in between), and take three different coins (at least one gold coin) to make sure it works every time.
+I will also try to input some invalid turn choices, like (blank), 5, and b.
+I will also try to take a coin when you can not and move a coin that isn't there and try to move a coin a negative amount and
+try to move a coin onto another coin and try to move a coin past another coin and try to move the coin in box 1.
 
 
 ### Expected Test Result
 
-the coin should always move the specified amount, and when the coin is taken, the last coin only is taken. when i input the invalid inputs, 
+the coin should always move the specified amount, and when the coin is taken, the last coin only is taken. when I input the invalid inputs, 
 it should tell me to try to do a valid move
 
 ---

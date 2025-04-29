@@ -36,18 +36,18 @@ The program structure:
 The program code:
 - [x] Is **indented** correctly
 - [x] Is **laid-out clearly**
-- [ ] Contains **comments** that help in understanding how it works
+- [x] Contains **comments** that help in understanding how it works
 
 ### Program Testing
 
 The program has been tested and there is documented evidence that:
-- [ ] The game is **fully functional**, showing testing of:
+- [x] The game is **fully functional**, showing testing of:
   - [x] game setup
-  - [ ] player moves
+  - [x] player moves
   - [x] players taking turns
   - [x] scoring (if any)
-  - [ ] players winning
-  - [ ] final feedback (if appropriate)
+  - [x] players winning
+  - [x] final feedback (if appropriate)
 - [x] **Valid (expected) data** has been used to test **all data inputs**
 - [x] Where tests have failed, **fixes** are discussed and **tests re-run**
 
