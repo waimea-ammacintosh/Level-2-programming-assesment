@@ -39,8 +39,8 @@ after ![fixed code](screenshots/FixedCoinInput.png)
 
 ## Date: 29/04/2025
 
-In testing, I noticed that you could softlock the game. I added a function to prevent this from happening, and now it is impossible to softlock it.
+In testing, I noticed that you could soft-lock the game. I added a function to prevent the user from moving a coin in a soft-locked grid, and now it is impossible to move while the grid is soft-locked.
 
-![example.png](screenshots/example.png)
+![fixed soft-locked](screenshots/NoSoftLocking.png)
 
 ---

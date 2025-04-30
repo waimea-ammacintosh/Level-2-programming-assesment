@@ -11,15 +11,17 @@
  * where the aim is to win by being the player who removes the gold coin.
  * =====================================================================
  */
-// constants for the entire game
+// constants and global variables for the entire game
 val NUMBOXES = (15..25).random()
 const val EMPTY = " "
 val SILVER = "S".grey()
 val GOLD = "G".col(164,129,17)
 var containsGold = true
 var takeCoin = false
-var isMovableCoins = false
 
+/**
+ * this is the main entry point for the program
+ */
 fun main() {
     //intro and instructions
     println("Welcome to...")
@@ -55,16 +57,15 @@ fun main() {
     println("Welcome to OLD GOLD $player2")
     println()
     //gets amount of coins to play with
-    val playerCoinNum = getCoins("There are $NUMBOXES boxes. How many Coins do you want to play with (5-15)?")
+    val playerCoinNum = getCoins("There are $NUMBOXES boxes. How many Coins do you want to play with (5-15)? ")
     // sets up grid and displays it
     val grid = setupGrid(playerCoinNum)
     var currentPlayer = 1
     //main loop
     while (true) {
         //shows the grid and checks for if there is a coin to take in last box
-        showGrid(grid)
         checkLastBox(grid)
-        checkCoinsCanMove(grid, playerCoinNum)
+        showGrid(grid)
         //displays the correct player
         if(currentPlayer == 1) {
             println("$player1, Your Turn")
@@ -75,7 +76,11 @@ fun main() {
         //loop for getting the players move, and proceeding with the action
         while (true) {
             println("Do you want to:")
-            val move = getString(if (isMovableCoins) "[M]ove a coin " else ("") + if (takeCoin) "[T]ake coin " else (""))
+            if (checkCoinsCanMove(grid)) println("[M]ove a coin")
+            if (takeCoin) println("[T]ake a coin")
+            val move = getString("")
+
+
             when (move) {
                 "T" ->
                     //check if there is a coin to take, it will take it
@@ -90,7 +95,7 @@ fun main() {
                         continue
                     }
                 "M" ->
-                    if (isMovableCoins) {
+                    if (checkCoinsCanMove(grid)) {
                         //checks with the user what coin is to move
                         while (true) {
                             println("What box contains the coin you wish to move? (select from " + 1..grid.size.toString() + ")")
@@ -371,24 +376,21 @@ fun isMoveValid (grid: List<String>, moveSpaces: Int?, movingCoinIndex: Int): Bo
 }
 
 
-
-fun checkCoinsCanMove (grid: List<String>, numCoins: Int): Boolean {
-    val coinLocation = mutableListOf<String>()
-    for (i in grid)
-        if (i != EMPTY) {
-            coinLocation.add("coin")
-        }
-    else   coinLocation.add("Empty")
-
-    if (coinLocation.lastIndexOf("coin") + 1 == coinLocation.lastIndexOf("empty")) {
-        isMovableCoins = false
+/**
+ * This function checks if there is at least one coin that can move, and returns either true
+ * or false depending on if there is or not.
+ * It works by looping through the list to check if there is at least one box
+ * that has a coin in it has an empty square behind it.
+ * Takes in the main game grid to check the boxes.
+ */
+fun checkCoinsCanMove (grid: List<String>): Boolean {
+    for (i in 1..<NUMBOXES) {
+        //checks if the square contains either GOLD or SILVER
+        if (grid[i] == GOLD || grid[i] == SILVER)
+            //checks if the position -1 is empty or not, if there is at least one, it will return true.
+            if (grid[i - 1] == EMPTY) {
+                return true
+            }
     }
-    else isMovableCoins = true
-
-    if (numCoins == NUMBOXES) {
-        isMovableCoins = false
-    }
-    else isMovableCoins = true
-
-    return isMovableCoins
+    return false
 }
